@@ -1,0 +1,98 @@
+package program;
+
+public class Inserir{
+    public static NomePeca [][] tamanhotabuleiro = new NomePeca[8][8];
+    static  NomePeca [][] tamanhoDotabuleiro = tamanhotabuleiro ;
+    private static int linha;
+    private static  int coluna;
+    private static int i=1;
+    private static int j;
+   private static char [] colunas = {'a','b','c','d','e','f','g','h'};
+    public static void InserirPecas (){
+
+        //INSERIR FILEIRAS DOS PEÕES
+        for(j=0;j<8;j++){
+            tamanhoDotabuleiro [i] [j] = NomePeca.PP;
+        }
+        i = 6;
+        for(j=0;j<8;j++){
+            tamanhoDotabuleiro [i] [j] = NomePeca.PB;
+        }
+
+
+        //TORRES
+        tamanhoDotabuleiro [0][0]= NomePeca.TP;
+        tamanhoDotabuleiro [0][7]= NomePeca.TP;
+        tamanhoDotabuleiro [7][0]= NomePeca.TB;
+        tamanhoDotabuleiro [7][7]= NomePeca.TB;
+
+        //BISPOS
+        tamanhoDotabuleiro [0][2]= NomePeca.BP;
+        tamanhoDotabuleiro [0][5]=NomePeca.BP;
+        tamanhoDotabuleiro [7][2]= NomePeca.BB;
+        tamanhoDotabuleiro [7][5]=NomePeca.BB;
+
+        //REI
+        tamanhoDotabuleiro [0][4]= NomePeca.RP;
+        tamanhoDotabuleiro [7][4]= NomePeca.RB;
+
+        //CAVALOS
+        tamanhoDotabuleiro [0][1]= NomePeca.CP;
+        tamanhoDotabuleiro [0][6]= NomePeca.CP;
+        tamanhoDotabuleiro [7][1]= NomePeca.CB;
+        tamanhoDotabuleiro [7][6]= NomePeca.CB;
+
+        //DAMA
+        tamanhoDotabuleiro [0][3]= NomePeca.DP;
+        tamanhoDotabuleiro [7][3]= NomePeca.DB;
+
+        //Mostrar o tabuleiro
+        for(linha=0;linha<tamanhoDotabuleiro.length;linha++){
+            System.out.print((8-linha)+" ");//coloca numeros nas linhas
+            for (coluna=0;coluna<tamanhoDotabuleiro[linha].length;coluna++){
+
+                if(tamanhoDotabuleiro[linha][coluna]==null){
+                    System.out.print("[ "+" ]");
+                }else {
+                    System.out.print("["+tamanhoDotabuleiro[linha][coluna]+"]" );
+                }
+            }
+            System.out.print("\n");
+        }
+
+        //INSERIR LETRAS DAS COLUNAS
+        for(char c : colunas ){
+            System.out.print("   "+ c + "");
+
+        }System.out.println("");
+    }
+
+    public static void Mostrartabuleiro(NomePeca [][] tamanhoDotabuleiro){
+
+        //Mostrar o tabuleiro
+        for(linha=0;linha<tamanhoDotabuleiro.length;linha++){
+            System.out.print((8-linha)+" ");//coloca numeros nas linhas
+            for (coluna=0;coluna<tamanhoDotabuleiro[linha].length;coluna++){
+
+                if(tamanhoDotabuleiro[linha][coluna]==null){
+                    System.out.print("[ "+" ]");
+                }else {
+                    System.out.print("["+tamanhoDotabuleiro[linha][coluna]+"]" );
+                }
+            }
+            System.out.print("\n");
+        }
+    }
+
+
+    public static  int [] ConversordeCasas(String posicao){
+        posicao = posicao.toLowerCase().trim();
+        char letra = posicao.charAt(0);
+        char numero= posicao.charAt(1);
+
+       int coluna = letra - 'a';
+       int linha = 8-Character.getNumericValue(numero);
+      return new int[]{linha,coluna};
+    }
+
+}

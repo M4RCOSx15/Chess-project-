@@ -1,0 +1,33 @@
+package program;
+
+import java.util.Scanner;
+
+public class Tabuleiro {
+    public static void main(String[] args) {
+        Scanner leia = new Scanner(System.in);
+
+        int resposta;
+
+            System.out.println("\n1-Ver casas do tabuleiro \n2-Jogar \n3-Sair do jogo \n");
+            resposta = leia.nextInt();
+
+            if(resposta==2){
+                int resp=1;
+
+                    System.out.println("-----INICIANDO JOGO-----");
+                    Pecas.Moverpeca(Inserir.tamanhotabuleiro);
+                    System.out.println("quer continuar?");
+                    resp = leia.nextInt();
+
+
+
+
+
+            }
+
+
+    }
+}
+
+
+

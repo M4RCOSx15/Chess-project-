@@ -1,0 +1,42 @@
+package program;
+
+import java.util.Scanner;
+
+public class Pecas {
+    int linha, coluna;
+    private static int []guardarposicao;//guardar a casa que quer colocar a peça
+    private static NomePeca [][] guardarTabuleiro; // vai servir para receber o tabuleiro atualizado
+    private static int [] guardarpeca;//receber a posição da peça
+    //METODO PARA ANDAR COM A PEÇA
+    public static void Moverpeca(NomePeca[][] tamanhoDotabuleiro) {
+        Scanner leia = new Scanner(System.in);
+        Inserir.InserirPecas();
+        String peca1,peca2 ;
+        int [] casadesejada;
+        int [] pecadesejada;
+        System.out.println("Qual posição ? ");
+            peca1 = leia.nextLine();
+            pecadesejada =Inserir.ConversordeCasas(peca1);//converte a string para a cordenada do array
+        System.out.println("["+pecadesejada[0]+"]["+pecadesejada[1]+"]");
+        System.out.println("Qual posição deseja ir:");
+            peca2 = leia.nextLine();
+            casadesejada = Inserir.ConversordeCasas(peca2);//converte para a cordenada do array
+        System.out.println("Casa desejada:["+casadesejada[0]+"]["+casadesejada[1]+"]");
+            guardarposicao = casadesejada;
+            guardarTabuleiro = tamanhoDotabuleiro;
+            guardarpeca = pecadesejada;
+        Removerpeca(guardarTabuleiro,guardarposicao,guardarpeca);
+    }
+
+    public static void Removerpeca(NomePeca [][] guardarTabuleiro, int[] guardarposicao, int [] guardarpeca){
+        int a,b,c,d;
+        a = guardarpeca[0];//cordenada eixo y da peca selecionada
+        b= guardarpeca [1];//cordenada eixo x
+        NomePeca pecaemmovimento = guardarTabuleiro[a][b];//vai receber a peça pra nao ser apagada
+        c= guardarposicao[0];
+        d= guardarposicao[1];
+       guardarTabuleiro[c][d]=pecaemmovimento;
+       guardarTabuleiro[a][b]=null; //apaga a peça que estava nessa casa
+       Inserir.Mostrartabuleiro(guardarTabuleiro);// mostra o tabuleiro atualizado
+    }
+}

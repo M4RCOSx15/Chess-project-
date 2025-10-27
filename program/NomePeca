@@ -1,0 +1,18 @@
+package program;
+
+public enum NomePeca {
+    PB //peao branco
+    ,TB //torre branco
+    ,DB //dama branco
+    ,RB //rei branco
+    ,CB  //cavalo branco
+    ,BB //bispo branco
+
+
+    ,PP //peao preto
+    ,TP, //torre preto
+    DP,  //dama preto
+    RP,  //rei preto
+    CP,  //cavalo preto
+    BP; //bispo preto
+}

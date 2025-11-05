@@ -3,32 +3,40 @@ package program;
 import java.util.Scanner;
 
 public class Pecas {
+
+    Inserir inserir1 = new Inserir();
     int linha, coluna;
     private static int []guardarposicao;//guardar a casa que quer colocar a peça
-    private static NomePeca [][] guardarTabuleiro; // vai servir para receber o tabuleiro atualizado
+    static NomePeca [][] guardarTabuleiro; // vai servir para receber o tabuleiro atualizado
     private static int [] guardarpeca;//receber a posição da peça
     //METODO PARA ANDAR COM A PEÇA
-    public static void Moverpeca(NomePeca[][] tamanhoDotabuleiro) {
+    public NomePeca [][] Moverpeca(NomePeca[][] tamanhoDotabuleiro) {
         Scanner leia = new Scanner(System.in);
-        Inserir.InserirPecas();
+
         String peca1,peca2 ;
         int [] casadesejada;
         int [] pecadesejada;
         System.out.println("Qual posição ? ");
             peca1 = leia.nextLine();
-            pecadesejada =Inserir.ConversordeCasas(peca1);//converte a string para a cordenada do array
+            pecadesejada =inserir1.ConversordeCasas(peca1);//converte a string para a cordenada do array
+
         System.out.println("["+pecadesejada[0]+"]["+pecadesejada[1]+"]");
         System.out.println("Qual posição deseja ir:");
             peca2 = leia.nextLine();
-            casadesejada = Inserir.ConversordeCasas(peca2);//converte para a cordenada do array
+            casadesejada = inserir1.ConversordeCasas(peca2);//converte para a cordenada do array
+
         System.out.println("Casa desejada:["+casadesejada[0]+"]["+casadesejada[1]+"]");
             guardarposicao = casadesejada;
             guardarTabuleiro = tamanhoDotabuleiro;
             guardarpeca = pecadesejada;
-        Removerpeca(guardarTabuleiro,guardarposicao,guardarpeca);
+        //colocar aqui
+       guardarTabuleiro= VerificarPeca(guardarTabuleiro,guardarposicao,guardarpeca);
+
+        inserir1.Mostrartabuleiro(guardarTabuleiro);
+        return guardarTabuleiro;
     }
 
-    public static void Removerpeca(NomePeca [][] guardarTabuleiro, int[] guardarposicao, int [] guardarpeca){
+    public void Removerpeca(NomePeca [][] guardarTabuleiro, int[] guardarposicao, int [] guardarpeca){
         int a,b,c,d;
         a = guardarpeca[0];//cordenada eixo y da peca selecionada
         b= guardarpeca [1];//cordenada eixo x
@@ -37,6 +45,47 @@ public class Pecas {
         d= guardarposicao[1];
        guardarTabuleiro[c][d]=pecaemmovimento;
        guardarTabuleiro[a][b]=null; //apaga a peça que estava nessa casa
-       Inserir.Mostrartabuleiro(guardarTabuleiro);// mostra o tabuleiro atualizado
+       inserir1.Mostrartabuleiro(guardarTabuleiro);// mostra o tabuleiro atualizado
+        System.out.println("");
     }
+
+    public NomePeca[][] VerificarPeca(NomePeca [][]guardartabuleiro,int [] guardarposicao, int [] guardarpeca){
+        Movimentos movimentos = new Movimentos();
+        int i,j,m,n;
+        String cordapeca,cordaPecaatacada;
+        i=guardarpeca[0];
+        j=guardarpeca[1];
+        m=guardarposicao[0];
+        n=guardarposicao[1];
+        if(guardartabuleiro[i][j]==NomePeca.PB || guardartabuleiro[i][j]==NomePeca.CB || guardartabuleiro[i][j]==NomePeca.TB || guardartabuleiro[i][j]==NomePeca.RB || guardartabuleiro[i][j]==NomePeca.DB || guardartabuleiro[i][j]==NomePeca.BB ){
+            cordapeca = "branco";
+        }else{
+            cordapeca = "preto";
+        }
+        if(guardartabuleiro[m][n]==NomePeca.PB || guardartabuleiro[m][n]==NomePeca.CB || guardartabuleiro[m][n]==NomePeca.TB || guardartabuleiro[m][n]==NomePeca.RB || guardartabuleiro[m][n]==NomePeca.DB || guardartabuleiro[m][n]==NomePeca.BB ){
+            cordaPecaatacada = "branco";
+        }else if(guardartabuleiro[m][n]==null){
+
+            cordaPecaatacada = "nada";
+
+        }else {
+            cordaPecaatacada = "preto";
+        }
+
+        if (guardarTabuleiro[i][j]==NomePeca.TB || guardarTabuleiro[i][j]==NomePeca.TP ){
+            movimentos.MovimentoTorre(guardarTabuleiro,guardarpeca,guardarposicao,cordapeca, cordaPecaatacada);
+        }
+        if(guardartabuleiro[i][j]==NomePeca.PB || guardartabuleiro[i][j]==NomePeca.PP){
+            movimentos.MovimentoPeao(guardartabuleiro,guardarpeca,guardarposicao,cordapeca, cordaPecaatacada);
+        }
+        if(guardartabuleiro[i][j]==NomePeca.RB || guardartabuleiro[i][j]==NomePeca.RP){
+            movimentos.MovimentoRei(guardartabuleiro,guardarpeca,guardarposicao,cordapeca);
+        }
+        if(guardartabuleiro[i][j]==NomePeca.BB || guardartabuleiro[i][j]==NomePeca.BP){
+            movimentos.MovimentoBispo(guardartabuleiro,guardarpeca,guardarposicao,cordapeca, cordaPecaatacada);
+        }
+       return guardartabuleiro;
+   }
+
+
 }

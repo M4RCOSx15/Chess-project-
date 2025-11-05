@@ -1,0 +1,345 @@
+package program;
+
+public class Movimentos {
+    Pecas peca = new Pecas();
+    Inserir inserir = new Inserir();
+    public void MovimentoTorre(NomePeca [][] guardarTabuleiro,int [] guardarpeca, int [] guardarposicao, String cordapeca, String cordaPecaatacada){
+       int i,j,m,n,l,passo;
+
+        i=guardarpeca[0];
+        j=guardarpeca[1];
+
+       m=guardarposicao[0];
+       n=guardarposicao[1];
+       //cor branca
+       if(cordapeca.equals("branco")){
+           //horizontal
+           System.out.println(i+ " "+m);
+           if(i==m){
+               passo = (n>j)? 1 :-1;
+               for(l=j + passo;l <= n;l +=passo){
+                   System.out.println("Verificando casa "+i+"  "+l);
+                   if(guardarTabuleiro[i][l]!=null){
+                       System.out.println("❌Peça no caminho horizontal brancas");
+                       return;
+                   }
+               }
+               peca.Removerpeca(guardarTabuleiro,guardarposicao,guardarpeca);
+               return;
+           }
+           if(j==n){
+               passo = (m>i)? 1 :-1;
+               //vertical
+               for(l=i + passo; l != m; l +=passo){
+                   if(guardarTabuleiro[l][j]!=null){
+                       System.out.println("Peça no caminho vertical Brancas");
+                       return;
+                   }
+               }
+               peca.Removerpeca(guardarTabuleiro,guardarposicao,guardarpeca);
+               return;
+           }
+
+               else{
+               System.out.println("Movimento Invalido, apenas movimento reto brancas ");
+               return;
+                }
+
+
+       }
+
+
+
+
+       else {
+           //cor preta
+           //horizontal
+           System.out.println(i+ " "+m);
+           if(i==m){
+               passo = (n>j)? 1 :-1;
+               for(l=j + passo;l <= n;l +=passo){
+                   System.out.println("Verificando casa "+i+"  "+l);
+                   if(guardarTabuleiro[i][l]!=null){
+                       System.out.println("❌Peça no caminho horizontal pretas");
+                       return;
+                   }
+               }
+               peca.Removerpeca(guardarTabuleiro,guardarposicao,guardarpeca);
+               return;
+           }
+           if(j==n){
+               passo = (m>i)? 1 :-1;
+               //vertical
+               for(l=i + passo; l <= m; l +=passo){
+                   if(guardarTabuleiro[l][j]!=null){
+                       System.out.println("Peça no caminho vertical pretas");
+                       return;
+                   }
+               }
+               peca.Removerpeca(guardarTabuleiro,guardarposicao,guardarpeca);
+               return;
+           }
+
+           else{
+               System.out.println("Movimento Invalido, apenas movimento reto pretas ");
+               return;
+           }
+       }
+
+
+    }
+    public void MovimentoPeao(NomePeca [][] guardarTabuleiro,int [] guardarpeca, int [] guardarposicao, String cordapeca, String cordaPecaatacada){
+        int linhapeca,colunapeca,linhadesejada,colunadesejada,l;
+        linhapeca = guardarpeca[0];
+        colunapeca = guardarpeca[1];
+        linhadesejada = guardarposicao[0];
+        colunadesejada = guardarposicao[1];
+        int passo, contagemdecasa;
+        contagemdecasa = linhapeca-linhadesejada;
+        int casaAtacada = colunapeca- colunadesejada;
+        if(cordapeca.equals("branco")){
+            if( linhapeca == 6){
+            System.out.println("O peão pode se mover duas casa ");
+
+            }
+            //VERIFICA SE A PEÇA E A CASA DESEJADA ESTÃO NA MESMA COLUNA
+            if(colunapeca==colunadesejada) {
+                passo = (linhadesejada > linhapeca) ? 1 : -1;
+                //vertical
+                for(l=linhapeca + passo; l >= linhadesejada; l +=passo){
+                    if(guardarTabuleiro[l][colunapeca]!=null){
+                        System.out.println("Peça no caminho vertical Brancas");
+                        return;
+                    }
+                }
+            }
+
+                if(contagemdecasa >2){
+                    System.out.println("não é possivel andar mais que duas casas");
+                    return;
+                }
+                //VERIFICAR SE A POSIÇÃO DITA É PARA UM PEAO TOMAR UMA PEÇA
+                if(casaAtacada == 1 || casaAtacada ==-1 ){
+                    if(cordaPecaatacada.equals("preto")){
+                        peca.Removerpeca(guardarTabuleiro,guardarposicao,guardarpeca);
+                        return;
+                    }else if(cordaPecaatacada.equals("nada")){
+                        System.out.println("Movimento Invalido, apenas movimento reto brancas ");
+                        return;
+                    }
+                }
+                //Verificar se nao fez um movimento sem sentido para peão
+                if(colunapeca != colunadesejada){
+                    System.out.println("Movimento Invalido, apenas movimento reto brancas ");
+                    return;
+                }
+                peca.Removerpeca(guardarTabuleiro,guardarposicao,guardarpeca);
+                return;
+
+        }
+        else{
+            //PRETO
+            if(cordapeca.equals("preto")){
+                if( linhapeca == 1){
+                    System.out.println("O peão pode se mover duas casa ");
+
+                }
+                //VERIFICA SE A PEÇA E A CASA DESEJADA ESTÃO NA MESMA COLUNA
+                if(colunapeca==colunadesejada) {
+                    passo = (linhadesejada > linhapeca) ? 1 : -1;
+                    //vertical
+                    for(l=linhapeca + passo; l <= linhadesejada; l +=passo){
+                        if(guardarTabuleiro[l][colunapeca]!=null){
+                            System.out.println("Peça no caminho vertical Pretas");
+                            return;
+                        }
+                    }
+                }
+
+                if(contagemdecasa >2){
+                    System.out.println("não é possivel andar mais que duas casas");
+                    return;
+                }
+                //VERIFICAR SE A POSIÇÃO DITA É PARA UM PEAO TOMAR UMA PEÇA
+                if(casaAtacada == 1 || casaAtacada ==-1 ){
+                    if(cordaPecaatacada.equals("branco")){
+                        peca.Removerpeca(guardarTabuleiro,guardarposicao,guardarpeca);
+                        return;
+                    }else if(cordaPecaatacada.equals("nada")){
+                        System.out.println("Movimento Invalido, apenas movimento reto pretas ");
+                        return;
+                    }
+                }
+                //Verificar se nao fez um movimento sem sentido para peão
+                if(colunapeca != colunadesejada){
+                    System.out.println("Movimento Invalido, apenas movimento reto pretas ");
+                    return;
+                }
+                peca.Removerpeca(guardarTabuleiro,guardarposicao,guardarpeca);
+                return;
+            }
+
+        }
+    }
+    public void MovimentoRei(NomePeca [][] guardarTabuleiro,int [] guardarpeca, int [] guardarposicao, String cordapeca){
+        int linhapeca,colunapeca,linhadesejada,colunadesejada,l,z;
+        linhapeca = guardarpeca[0];
+        colunapeca = guardarpeca[1];
+        linhadesejada = guardarposicao[0];
+        colunadesejada = guardarposicao[1];
+        int passo;
+
+        if(cordapeca.equals("branco")){
+            //VERIFICA SE A PEÇA E A CASA DESEJADA ESTÃO NA MESMA COLUNA
+            if(colunapeca==colunadesejada) {
+                passo = (linhadesejada > linhapeca) ? 1 : -1;
+                //vertical
+                for(l=linhapeca + passo; l >= linhadesejada; l +=passo){
+                    if(guardarTabuleiro[l][colunapeca]!=null){
+                        System.out.println("Peça no caminho vertical Brancas");
+                        return;
+                    } else {
+                        peca.Removerpeca(guardarTabuleiro,guardarposicao,guardarpeca);
+                        return;
+                    }
+                }
+                peca.Removerpeca(guardarTabuleiro,guardarposicao,guardarpeca);
+            }
+            //VERIFICAR LATERAL
+            if (linhapeca==linhadesejada){
+                passo = (colunadesejada > colunapeca)?1 : -1;
+                for(l=colunapeca + passo; l <= colunadesejada; l +=passo){
+                    if(guardarTabuleiro[linhapeca][l]!=null){
+                        System.out.println("Peça no caminho lateral Brancas");
+                        return;
+                    } else {
+                        peca.Removerpeca(guardarTabuleiro,guardarposicao,guardarpeca);
+                        return;
+                    }
+                }
+
+                peca.Removerpeca(guardarTabuleiro,guardarposicao,guardarpeca);
+            }
+            if(linhapeca != linhadesejada && colunapeca != colunadesejada){
+                //VERIFICAR SE É DIAGONAL
+                passo = (linhadesejada > linhapeca) ? 1 : -1;
+                int passo2 = (colunadesejada < colunapeca)? 1 : -1;
+                //vertical
+                for(z=linhapeca + passo; z >= linhadesejada; z +=passo){
+                    for(l=colunapeca + passo; l <= colunadesejada; l +=passo2){
+                        if(guardarTabuleiro[z][l] != null){
+                            System.out.println("Invalido ");
+                            return;
+                        }else {
+                            peca.Removerpeca(guardarTabuleiro,guardarposicao,guardarpeca);
+                        }
+                    }
+                }
+            }
+        } if(cordapeca.equals("preto")){
+            //VERIFICA SE A PEÇA E A CASA DESEJADA ESTÃO NA MESMA COLUNA
+            if(colunapeca==colunadesejada) {
+                passo = (linhadesejada > linhapeca) ? 1 : -1;
+                //vertical
+                for(l=linhapeca + passo; l <= linhadesejada; l +=passo){
+                    if(guardarTabuleiro[l][colunapeca]!=null){
+                        System.out.println("Peça no caminho vertical Pretas");
+                        return;
+                    } else {
+                        peca.Removerpeca(guardarTabuleiro,guardarposicao,guardarpeca);
+                        return;
+                    }
+                }
+                peca.Removerpeca(guardarTabuleiro,guardarposicao,guardarpeca);
+            }
+            //VERIFICAR LATERAL
+            if (linhapeca==linhadesejada){
+                passo = (colunadesejada > colunapeca)?1 : -1;
+                for(l=colunapeca + passo; l <= colunadesejada; l +=passo){
+                    if(guardarTabuleiro[linhapeca][l]!=null){
+                        System.out.println("Peça no caminho lateral Pretas");
+                        return;
+                    } else {
+                        peca.Removerpeca(guardarTabuleiro,guardarposicao,guardarpeca);
+                        return;
+                    }
+                }
+
+                peca.Removerpeca(guardarTabuleiro,guardarposicao,guardarpeca);
+            }
+            if(linhapeca != linhadesejada && colunapeca != colunadesejada){
+                //VERIFICAR SE É DIAGONAL
+                passo = (linhadesejada > linhapeca) ? 1 : -1;
+                int passo2 = (colunadesejada > colunapeca)? 1 : -1;
+                //vertical
+                for(z=linhapeca + passo; z <= linhadesejada; z +=passo){
+                    for(l=colunapeca + passo2; l >= colunadesejada; l +=passo2){
+                        if(guardarTabuleiro[z][l] != null){
+                            System.out.println("Invalido ");
+                            return;
+                        }else {
+                            peca.Removerpeca(guardarTabuleiro,guardarposicao,guardarpeca);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    public void MovimentoBispo(NomePeca[][] guardarTabuleiro, int [] guardarpeca, int [] guardarposicao, String cordapeca, String cordaPecaatacada){
+        int linhapeca,colunapeca,linhadesejada,colunadesejada,l,z;
+        linhapeca = guardarpeca[0];
+        colunapeca = guardarpeca[1];
+        linhadesejada = guardarposicao[0];
+        colunadesejada = guardarposicao[1];
+        int passo,passo2;
+       if(cordapeca.equals("branco")){
+           if(linhapeca != linhadesejada && colunapeca != colunadesejada){
+           //VERIFICAR SE É DIAGONAL
+           passo = (linhadesejada > linhapeca) ? 1 : -1;
+           passo2 = (colunadesejada > colunapeca)? 1 : -1;
+           //vertical
+           for(z=linhapeca + passo; z >= linhadesejada; z +=passo){
+               for(l=colunapeca + passo2; l <= colunadesejada; l +=passo2){
+                   if (cordaPecaatacada.equals("preto")){
+                       peca.Removerpeca(guardarTabuleiro,guardarposicao,guardarpeca);
+                       return;
+                   }
+                   if(guardarTabuleiro[z][l] != null  ){
+                       System.out.println("Não é possível");
+
+                       return;
+                   }else {
+                       peca.Removerpeca(guardarTabuleiro,guardarposicao,guardarpeca);
+                   }
+               }
+           }
+           }else {
+               System.out.println("Movimento invalido");
+               return;
+           }
+       } if(cordapeca.equals("preto")){
+           if(linhapeca != linhadesejada && colunapeca != colunadesejada){
+               //VERIFICAR SE É DIAGONAL
+               passo = (linhadesejada > linhapeca) ? 1 : -1;
+                passo2 = (colunadesejada > colunapeca)? 1 : -1;
+               //vertical
+               for(z=linhapeca + passo; z <= linhadesejada; z +=passo){
+                   for(l=colunapeca + passo2; l >= colunadesejada; l +=passo2){
+                       if (cordaPecaatacada.equals("branco")){
+                           peca.Removerpeca(guardarTabuleiro,guardarposicao,guardarpeca);
+                           return;
+                       }
+                       if(guardarTabuleiro[z][l] != null){
+                           System.out.println("Invalido ");
+                           return;
+                       }else {
+                           peca.Removerpeca(guardarTabuleiro,guardarposicao,guardarpeca);
+                       }
+                   }
+               }
+           }
+       }
+
+    }
+
+}

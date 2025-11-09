@@ -3,18 +3,17 @@ package program;
 public class Movimentos {
     Pecas peca = new Pecas();
     Inserir inserir = new Inserir();
+    Checagem checar = new Checagem();
     public void MovimentoTorre(NomePeca [][] guardarTabuleiro,int [] guardarpeca, int [] guardarposicao, String cordapeca, String cordaPecaatacada){
        int i,j,m,n,l,passo;
-
-        i=guardarpeca[0];
-        j=guardarpeca[1];
-
+       i=guardarpeca[0];
+       j=guardarpeca[1];
        m=guardarposicao[0];
        n=guardarposicao[1];
        //cor branca
-       if(cordapeca.equals("branco")){
-           //horizontal
-           System.out.println(i+ " "+m);
+        if(cordapeca.equals("branco")){
+        //horizontal
+            System.out.println(i+ " "+m);
            if(i==m){
                passo = (n>j)? 1 :-1;
                for(l=j + passo;l <= n;l +=passo){
@@ -25,6 +24,7 @@ public class Movimentos {
                    }
                }
                peca.Removerpeca(guardarTabuleiro,guardarposicao,guardarpeca);
+               checar.VerificarCheque(guardarTabuleiro,guardarposicao,guardarpeca,cordaPecaatacada);
                return;
            }
            if(j==n){
@@ -37,6 +37,7 @@ public class Movimentos {
                    }
                }
                peca.Removerpeca(guardarTabuleiro,guardarposicao,guardarpeca);
+               checar.VerificarCheque(guardarTabuleiro,guardarposicao,guardarpeca,cordaPecaatacada);
                return;
            }
 
@@ -65,6 +66,7 @@ public class Movimentos {
                    }
                }
                peca.Removerpeca(guardarTabuleiro,guardarposicao,guardarpeca);
+               checar.VerificarCheque(guardarTabuleiro,guardarposicao,guardarpeca,cordaPecaatacada);
                return;
            }
            if(j==n){
@@ -77,6 +79,7 @@ public class Movimentos {
                    }
                }
                peca.Removerpeca(guardarTabuleiro,guardarposicao,guardarpeca);
+               checar.VerificarCheque(guardarTabuleiro,guardarposicao,guardarpeca,cordaPecaatacada);
                return;
            }
 
@@ -122,6 +125,7 @@ public class Movimentos {
                 if(casaAtacada == 1 || casaAtacada ==-1 ){
                     if(cordaPecaatacada.equals("preto")){
                         peca.Removerpeca(guardarTabuleiro,guardarposicao,guardarpeca);
+                        checar.VerificarCheque(guardarTabuleiro,guardarposicao,guardarpeca,cordaPecaatacada);
                         return;
                     }else if(cordaPecaatacada.equals("nada")){
                         System.out.println("Movimento Invalido, apenas movimento reto brancas ");
@@ -134,6 +138,7 @@ public class Movimentos {
                     return;
                 }
                 peca.Removerpeca(guardarTabuleiro,guardarposicao,guardarpeca);
+                checar.VerificarCheque(guardarTabuleiro,guardarposicao,guardarpeca,cordaPecaatacada);
                 return;
 
         }
@@ -164,6 +169,7 @@ public class Movimentos {
                 if(casaAtacada == 1 || casaAtacada ==-1 ){
                     if(cordaPecaatacada.equals("branco")){
                         peca.Removerpeca(guardarTabuleiro,guardarposicao,guardarpeca);
+                        checar.VerificarCheque(guardarTabuleiro,guardarposicao,guardarpeca,cordaPecaatacada);
                         return;
                     }else if(cordaPecaatacada.equals("nada")){
                         System.out.println("Movimento Invalido, apenas movimento reto pretas ");
@@ -176,6 +182,7 @@ public class Movimentos {
                     return;
                 }
                 peca.Removerpeca(guardarTabuleiro,guardarposicao,guardarpeca);
+                checar.VerificarCheque(guardarTabuleiro,guardarposicao,guardarpeca,cordaPecaatacada);
                 return;
             }
 
@@ -204,6 +211,7 @@ public class Movimentos {
                     }
                 }
                 peca.Removerpeca(guardarTabuleiro,guardarposicao,guardarpeca);
+
             }
             //VERIFICAR LATERAL
             if (linhapeca==linhadesejada){
@@ -302,6 +310,7 @@ public class Movimentos {
                for(l=colunapeca + passo2; l <= colunadesejada; l +=passo2){
                    if (cordaPecaatacada.equals("preto")){
                        peca.Removerpeca(guardarTabuleiro,guardarposicao,guardarpeca);
+                       checar.VerificarCheque(guardarTabuleiro,guardarposicao,guardarpeca,cordaPecaatacada);
                        return;
                    }
                    if(guardarTabuleiro[z][l] != null  ){
@@ -310,6 +319,7 @@ public class Movimentos {
                        return;
                    }else {
                        peca.Removerpeca(guardarTabuleiro,guardarposicao,guardarpeca);
+                       checar.VerificarCheque(guardarTabuleiro,guardarposicao,guardarpeca,cordaPecaatacada);
                    }
                }
            }
@@ -327,6 +337,7 @@ public class Movimentos {
                    for(l=colunapeca + passo2; l >= colunadesejada; l +=passo2){
                        if (cordaPecaatacada.equals("branco")){
                            peca.Removerpeca(guardarTabuleiro,guardarposicao,guardarpeca);
+                           checar.VerificarCheque(guardarTabuleiro,guardarposicao,guardarpeca,cordaPecaatacada);
                            return;
                        }
                        if(guardarTabuleiro[z][l] != null){
@@ -334,6 +345,7 @@ public class Movimentos {
                            return;
                        }else {
                            peca.Removerpeca(guardarTabuleiro,guardarposicao,guardarpeca);
+                           checar.VerificarCheque(guardarTabuleiro,guardarposicao,guardarpeca,cordaPecaatacada);
                        }
                    }
                }
@@ -341,5 +353,288 @@ public class Movimentos {
        }
 
     }
+    public void MovimentoCavalo(NomePeca[][] guardarTabuleiro, int [] guardarpeca, int [] guardarposicao, String cordapeca, String cordaPecaatacada){
+        int linhapeca,colunapeca,linhadesejada,colunadesejada,l,z;
+        linhapeca = guardarpeca[0];
+        colunapeca = guardarpeca[1];
+        linhadesejada = guardarposicao[0];
+        colunadesejada = guardarposicao[1];
+        int passo,passo2,diferencaCol;
+        diferencaCol = colunadesejada - colunapeca;
 
+        if(cordapeca.equals("branco")){
+            if(cordaPecaatacada.equals("branca")){
+                System.out.println("Movimento Invalido");
+                return;
+            }
+            //ANDAR PARA CASAS A FRENTE
+            if(diferencaCol == 1 || diferencaCol == -1){
+                passo = (linhadesejada > linhapeca )? 1 : -1;
+                passo2 = (colunadesejada > colunapeca)? 1 : -1;
+                for (l = linhapeca + passo; l >= linhadesejada ; l += passo){
+                    if(l == linhadesejada){
+                        for(z = colunapeca + passo; z<=colunadesejada; z += passo2){
+                            if (z == colunadesejada) {
+                                if(guardarTabuleiro[z][l] != null){
+                                    System.out.println("Invalido andar pra frente ");
+                                    return;
+                                }
+                            }
+                        }
+                    }
+                    peca.Removerpeca(guardarTabuleiro,guardarposicao,guardarpeca);
+                    checar.VerificarCheque(guardarTabuleiro,guardarposicao,guardarpeca,cordaPecaatacada);
+                    return;
+                }
+            }
+            //ANDAR CASA PRA TRAS
+            if(diferencaCol == 1 || diferencaCol == -1){
+                passo = (linhadesejada > linhapeca )? 1 : -1;
+                passo2 = (colunadesejada > colunapeca)? 1 : -1;
+                for (l = linhapeca + passo; l <= linhadesejada ; l += passo){
+                    if(l == linhadesejada){
+                        for(z = colunapeca + passo; z>=colunadesejada; z += passo2){
+                            if(z == colunadesejada){
+                                if(guardarTabuleiro[l][z] != null){
+                                    System.out.println("Invalido");
+                                    return;
+                                }
+
+                            }else {
+                                peca.Removerpeca(guardarTabuleiro,guardarposicao,guardarpeca);
+                                checar.VerificarCheque(guardarTabuleiro,guardarposicao,guardarpeca,cordaPecaatacada);
+                                return;
+                            }
+                        }
+                    }
+                }
+            }
+            //ANDAR PARA CASAS LATERAIS
+            if (diferencaCol == 2 || diferencaCol == -2){
+                passo = (linhadesejada < linhapeca )? 1 : -1;
+                passo2 = (colunadesejada < colunapeca)? 1 : -1;
+                for(l = colunapeca + passo ; l <= colunadesejada ; l += passo){
+                    if(l == colunadesejada){
+                        for(z = linhapeca + passo; z >= linhadesejada ; z += passo2){
+                            if(z == linhadesejada){
+                                if(guardarTabuleiro[z][l] != null){
+                                    System.out.println("Invalido");
+                                    return;
+                                }
+                            }
+
+                        }
+                    }
+                }
+                peca.Removerpeca(guardarTabuleiro,guardarposicao,guardarpeca);
+                checar.VerificarCheque(guardarTabuleiro,guardarposicao,guardarpeca,cordaPecaatacada);
+                return;
+            }else {
+                System.out.println("Invalido Movimento cavalo");
+            }
+
+        }
+
+
+
+
+        //PRETO
+        if(cordapeca.equals("preto")){
+            if(cordaPecaatacada.equals("preto")){
+                System.out.println("Movimento Invalido");
+                return;
+            }
+            //ANDAR PARA CASAS A FRENTE PRETAS
+            if(diferencaCol == 1 || diferencaCol == -1){
+                passo = (linhadesejada > linhapeca )? 1 : -1;
+                passo2 = (colunadesejada > colunapeca)? 1 : -1;
+                for (l = linhapeca + passo; l <= linhadesejada ; l += passo){
+                    if(l == linhadesejada){
+                        for(z = colunapeca + passo; z>=colunadesejada; z += passo2){
+                            if(z == colunadesejada){
+                                if(guardarTabuleiro[z][l] != null){
+                                    System.out.println("Invalido");
+                                    return;
+                            } else {
+                                    peca.Removerpeca(guardarTabuleiro,guardarposicao,guardarpeca);
+                                    checar.VerificarCheque(guardarTabuleiro,guardarposicao,guardarpeca,cordaPecaatacada);
+                                    return;
+                            }
+                            }
+                        }
+                    }
+                }
+            }//ANDAR PARA CASAS TRAS
+            if(diferencaCol == 1 || diferencaCol == -1){
+                passo = (linhadesejada > linhapeca )? 1 : -1;
+                passo2 = (colunadesejada > colunapeca)? 1 : -1;
+                for (l = linhapeca + passo; l >= linhadesejada ; l += passo){
+                    if(l == linhadesejada){
+                        for(z = colunapeca + passo; z<=colunadesejada; z += passo2){
+                            if (z == colunadesejada) {
+                                if(guardarTabuleiro[z][l] != null){
+                                    System.out.println("Invalido andar pra tras ");
+                                    return;
+                                }
+                            }
+                        }
+                    }
+                    peca.Removerpeca(guardarTabuleiro,guardarposicao,guardarpeca);
+                    checar.VerificarCheque(guardarTabuleiro,guardarposicao,guardarpeca,cordaPecaatacada);
+                    return;
+                }
+            }
+
+            //ANDAR PARA CASAS LATERAIS
+            if (diferencaCol == 2 || diferencaCol == -2){
+                passo = (linhadesejada > linhapeca )? 1 : -1;
+                passo2 = (colunadesejada > colunapeca)? 1 : -1;
+                for(l = colunapeca + passo ; l <= colunadesejada ; l += passo){
+                    if(l == colunadesejada){
+                        for(z = linhapeca + passo; z <= linhadesejada ; z += passo2){
+                            if(z == linhadesejada){
+                                if(guardarTabuleiro[z][l] != null){
+                                    System.out.println("Invalido");
+                                    return;
+                                }
+                            }
+
+                        }
+                    }
+                }
+                peca.Removerpeca(guardarTabuleiro,guardarposicao,guardarpeca);
+                checar.VerificarCheque(guardarTabuleiro,guardarposicao,guardarpeca,cordaPecaatacada);
+                return;
+            }else {
+                System.out.println("Invalido Movimento cavalo");
+            }
+        }
+
+    }
+    public void MovimentoDama(NomePeca[][] guardarTabuleiro, int [] guardarpeca, int [] guardarposicao, String cordapeca, String cordaPecaatacada){
+        int i,j,m,n,l,passo,passo2,z;
+
+        i=guardarpeca[0];//LINHA
+        j=guardarpeca[1];//COLUNA
+
+        m=guardarposicao[0];
+        n=guardarposicao[1];
+        //cor branca
+        if(cordapeca.equals("branco")){
+            //horizontal
+            System.out.println(i+ " "+m);
+            if(i==m){
+                passo = (n>j)? 1 :-1;
+                for(l=j + passo;l <= n;l +=passo){
+                    System.out.println("Verificando casa "+i+"  "+l);
+                    if(guardarTabuleiro[i][l]!=null){
+                        System.out.println("❌Peça no caminho horizontal brancas");
+                        return;
+                    }
+                }
+                peca.Removerpeca(guardarTabuleiro,guardarposicao,guardarpeca);
+                checar.VerificarCheque(guardarTabuleiro,guardarposicao,guardarpeca,cordaPecaatacada);
+                return;
+            }
+            if(j==n){
+                passo = (m>i)? 1 :-1;
+                //vertical
+                for(l=i + passo; l >= m; l +=passo){
+                    if(guardarTabuleiro[l][j]!=null){
+                        if(cordaPecaatacada.equals("preto")){
+                            peca.Removerpeca(guardarTabuleiro,guardarposicao,guardarpeca);
+                            checar.VerificarCheque(guardarTabuleiro,guardarposicao,guardarpeca,cordaPecaatacada);
+                            return;
+                        }
+                        System.out.println("Peça no caminho vertical Brancas");
+                        return;
+                    }
+                }
+                peca.Removerpeca(guardarTabuleiro,guardarposicao,guardarpeca);
+                checar.VerificarCheque(guardarTabuleiro,guardarposicao,guardarpeca,cordaPecaatacada);
+                return;
+            }
+            if(i != m && j != n){
+                //VERIFICAR SE É DIAGONAL
+                passo = (j > i) ? 1 : -1;
+                passo2 = (n > m)? 1 : -1;
+                //vertical
+                for(z=i + passo; z >= j; z +=passo){
+                    for(l=m + passo2; l <= n; l +=passo2){
+                        if (cordaPecaatacada.equals("preto")){
+                            peca.Removerpeca(guardarTabuleiro,guardarposicao,guardarpeca);
+                            return;
+                        }
+                        if(guardarTabuleiro[z][l] != null  ){
+                            System.out.println("Não é possível");
+
+                            return;
+                        }else {
+                            peca.Removerpeca(guardarTabuleiro,guardarposicao,guardarpeca);
+                            checar.VerificarCheque(guardarTabuleiro,guardarposicao,guardarpeca,cordaPecaatacada);
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+
+
+
+
+        else {
+            //cor preta
+            //horizontal
+            System.out.println(i+ " "+m);
+            if(i==m){
+                passo = (n>j)? 1 :-1;
+                for(l=j + passo;l <= n;l +=passo){
+                    System.out.println("Verificando casa "+i+"  "+l);
+                    if(guardarTabuleiro[i][l]!=null){
+                        System.out.println("❌Peça no caminho horizontal pretas");
+                        return;
+                    }
+                }
+                peca.Removerpeca(guardarTabuleiro,guardarposicao,guardarpeca);
+                checar.VerificarCheque(guardarTabuleiro,guardarposicao,guardarpeca,cordaPecaatacada);
+                return;
+            }
+            if(j==n){
+                passo = (m>i)? 1 :-1;
+                //vertical
+                for(l=i + passo; l <= m; l +=passo){
+                    if(guardarTabuleiro[l][j]!=null){
+                        System.out.println("Peça no caminho vertical pretas");
+                        return;
+                    }
+                }
+                peca.Removerpeca(guardarTabuleiro,guardarposicao,guardarpeca);
+                checar.VerificarCheque(guardarTabuleiro,guardarposicao,guardarpeca,cordaPecaatacada);
+                return;
+            }
+            if(i != j && m != n){
+                //VERIFICAR SE É DIAGONAL
+                passo = (j > i) ? 1 : -1;
+                passo2 = (n > m)? 1 : -1;
+                //vertical
+                for(z=i + passo; z <= j; z +=passo){
+                    for(l=m + passo2; l >= n; l +=passo2){
+                        if (cordaPecaatacada.equals("branco")){
+                            peca.Removerpeca(guardarTabuleiro,guardarposicao,guardarpeca);
+                            checar.VerificarCheque(guardarTabuleiro,guardarposicao,guardarpeca,cordaPecaatacada);
+                            return;
+                        }
+                        if(guardarTabuleiro[z][l] != null){
+                            System.out.println("Invalido ");
+                            return;
+                        }else {
+                            peca.Removerpeca(guardarTabuleiro,guardarposicao,guardarpeca);
+                            checar.VerificarCheque(guardarTabuleiro,guardarposicao,guardarpeca,cordaPecaatacada);
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

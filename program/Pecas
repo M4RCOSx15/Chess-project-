@@ -17,20 +17,20 @@ public class Pecas {
         int [] casadesejada;
         int [] pecadesejada;
         System.out.println("Qual posição ? ");
-            peca1 = leia.nextLine();
-            pecadesejada =inserir1.ConversordeCasas(peca1);//converte a string para a cordenada do array
+        peca1 = leia.nextLine();
+        pecadesejada =inserir1.ConversordeCasas(peca1);//converte a string para a cordenada do array
 
         System.out.println("["+pecadesejada[0]+"]["+pecadesejada[1]+"]");
         System.out.println("Qual posição deseja ir:");
-            peca2 = leia.nextLine();
-            casadesejada = inserir1.ConversordeCasas(peca2);//converte para a cordenada do array
+        peca2 = leia.nextLine();
+        casadesejada = inserir1.ConversordeCasas(peca2);//converte para a cordenada do array
 
         System.out.println("Casa desejada:["+casadesejada[0]+"]["+casadesejada[1]+"]");
-            guardarposicao = casadesejada;
-            guardarTabuleiro = tamanhoDotabuleiro;
-            guardarpeca = pecadesejada;
+        guardarposicao = casadesejada;
+        guardarTabuleiro = tamanhoDotabuleiro;
+        guardarpeca = pecadesejada;
         //colocar aqui
-       guardarTabuleiro= VerificarPeca(guardarTabuleiro,guardarposicao,guardarpeca);
+        guardarTabuleiro= VerificarPeca(guardarTabuleiro,guardarposicao,guardarpeca);
 
         inserir1.Mostrartabuleiro(guardarTabuleiro);
         return guardarTabuleiro;
@@ -43,9 +43,9 @@ public class Pecas {
         NomePeca pecaemmovimento = guardarTabuleiro[a][b];//vai receber a peça pra nao ser apagada
         c= guardarposicao[0];
         d= guardarposicao[1];
-       guardarTabuleiro[c][d]=pecaemmovimento;
-       guardarTabuleiro[a][b]=null; //apaga a peça que estava nessa casa
-       inserir1.Mostrartabuleiro(guardarTabuleiro);// mostra o tabuleiro atualizado
+        guardarTabuleiro[c][d]=pecaemmovimento;
+        guardarTabuleiro[a][b]=null; //apaga a peça que estava nessa casa
+        inserir1.Mostrartabuleiro(guardarTabuleiro);// mostra o tabuleiro atualizado
         System.out.println("");
     }
 
@@ -84,8 +84,14 @@ public class Pecas {
         if(guardartabuleiro[i][j]==NomePeca.BB || guardartabuleiro[i][j]==NomePeca.BP){
             movimentos.MovimentoBispo(guardartabuleiro,guardarpeca,guardarposicao,cordapeca, cordaPecaatacada);
         }
-       return guardartabuleiro;
-   }
+        if(guardartabuleiro[i][j]==NomePeca.CB || guardartabuleiro[i][j]==NomePeca.CP){
+            movimentos.MovimentoCavalo(guardartabuleiro,guardarpeca,guardarposicao,cordapeca, cordaPecaatacada);
+        }
+        if(guardartabuleiro[i][j]==NomePeca.DB || guardartabuleiro[i][j]==NomePeca.DP){
+            movimentos.MovimentoDama(guardartabuleiro,guardarpeca,guardarposicao,cordapeca, cordaPecaatacada);
+        }
+        return guardartabuleiro;
+    }
 
 
 }

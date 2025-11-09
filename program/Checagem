@@ -1,0 +1,24 @@
+package program;
+
+public class Checagem {
+    public void VerificarCheque(NomePeca[][] guardarTabuleiro, int[] guardarpeca, int[] guardarposicao, String cordaPecaatacada) {
+        int m, n;
+
+        m = guardarposicao[0];
+        n = guardarposicao[1];
+        if (cordaPecaatacada.equals("preto")) {
+          if(guardarTabuleiro[m][n] == NomePeca.RP){
+              System.out.println("CHEQUE PRETAS");
+              return;
+          }
+
+        }
+        if (cordaPecaatacada.equals("branco")) {
+            if(guardarTabuleiro[m][n] == NomePeca.RB){
+                System.out.println("CHEQUE BRANCAS");
+                return;
+            }
+
+        }
+    }
+}

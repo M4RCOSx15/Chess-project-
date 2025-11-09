@@ -2,13 +2,13 @@ package program;
 
 public class Inserir{
     public static NomePeca [][] tamanhotabuleiro = new NomePeca[8][8];
-    static  NomePeca [][] tamanhoDotabuleiro = tamanhotabuleiro ;
-    private static int linha;
-    private static  int coluna;
-    private static int i=1;
+    static NomePeca [][] tamanhoDotabuleiro = tamanhotabuleiro ;
+    private  static int linha;
+    private  static int coluna;
+    private  static int i=1;
     private static int j;
-   private static char [] colunas = {'a','b','c','d','e','f','g','h'};
-    public static void InserirPecas (){
+   private  static  char [] colunas = {'a','b','c','d','e','f','g','h'};
+    public static void InserirPecas (NomePeca [][]tamanhoDotabuleiro){
 
         //INSERIR FILEIRAS DOS PEÕES
         for(j=0;j<8;j++){
@@ -65,9 +65,11 @@ public class Inserir{
             System.out.print("   "+ c + "");
 
         }System.out.println("");
+
+
     }
 
-    public static void Mostrartabuleiro(NomePeca [][] tamanhoDotabuleiro){
+    public void Mostrartabuleiro(NomePeca [][] tamanhoDotabuleiro){
 
         //Mostrar o tabuleiro
         for(linha=0;linha<tamanhoDotabuleiro.length;linha++){
@@ -82,10 +84,34 @@ public class Inserir{
             }
             System.out.print("\n");
         }
+
+
+    }
+
+    public void TabuleiroCasas(NomePeca [][] tamanhoDotabuleiro){
+        char letra = 'a';
+        char numero;
+        for(linha=0;linha<tamanhoDotabuleiro.length;coluna++){
+            System.out.print((8-linha)+" ");//coloca numeros nas linhas
+            for (coluna=0;coluna<tamanhoDotabuleiro[linha].length;coluna++){
+
+                if(tamanhoDotabuleiro[linha][coluna]==null){
+                    numero = (char) (letra+coluna);
+                    System.out.print("[ "+(numero)+""+(8-linha)+" ]");
+
+                }else {
+                    System.out.print("["+tamanhoDotabuleiro[linha][coluna]+"]" );
+                }
+            }
+            numero = (char) (letra+linha);
+            linha++;
+            System.out.print("\n");
+        }
     }
 
 
-    public static  int [] ConversordeCasas(String posicao){
+
+    public int [] ConversordeCasas(String posicao){
         posicao = posicao.toLowerCase().trim();
         char letra = posicao.charAt(0);
         char numero= posicao.charAt(1);

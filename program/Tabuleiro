@@ -5,26 +5,38 @@ import java.util.Scanner;
 public class Tabuleiro {
     public static void main(String[] args) {
         Scanner leia = new Scanner(System.in);
+        Pecas MovimentodaPeca = new Pecas();
+        NomePeca [][]tabuleiroatualizado;
+        Inserir inserir = new Inserir();
 
         int resposta;
 
             System.out.println("\n1-Ver casas do tabuleiro \n2-Jogar \n3-Sair do jogo \n");
             resposta = leia.nextInt();
-
+        if (resposta == 1){
+            do {
+                inserir.TabuleiroCasas(Inserir.tamanhotabuleiro);
+                System.out.println("\n1-Ver casas do tabuleiro \n2-Jogar \n3-Sair do jogo \n");
+                resposta = leia.nextInt();
+            }while (resposta==1);
+        }
             if(resposta==2){
-                int resp=1;
+                int resp=0;
+                System.out.println("-----INICIANDO JOGO-----");
+                Inserir.InserirPecas(Inserir.tamanhoDotabuleiro);//cria o primeiro tabuleiro
 
-                    System.out.println("-----INICIANDO JOGO-----");
-                    Pecas.Moverpeca(Inserir.tamanhotabuleiro);
+                do{
+                    MovimentodaPeca.Moverpeca(Inserir.tamanhotabuleiro);//Move a peça no tabuleiro criado de acordo com comandos manuais
+                    MovimentodaPeca.Moverpeca(Pecas.guardarTabuleiro);//Vez das pretas de moverem
                     System.out.println("quer continuar?");
-                    resp = leia.nextInt();
-
-
-
-
-
+                 resp = leia.nextInt();
+             }while (resp == 1);
             }
-
+            if (resposta == 3){
+                System.out.println("-----------------------------");
+                System.out.println("     PROGRAMA FINALIZADO    ");
+                System.out.println("-----------------------------");
+            }
 
     }
 }

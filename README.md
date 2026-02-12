@@ -1,5 +1,5 @@
 ## Olá pessoal 👋
-<! --
+
 # Olá, me chamo Marcos Gabriel ! 
 ## Bem vindo ao meu perfil GitHub 👋
 - 🌱 Atualmente estou aprendendo java | HTML5 | CSS | JAVASCRIPT
@@ -14,4 +14,4 @@
   <a href = "marcosdoth15@gmail.com"><img loading="lazy" src="https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white" target="_blank"></a>
   <a href="https://www.linkedin.com/in/marcos-gabriel-93b8b2345/" target="_blank"><img loading="lazy" src="https://img.shields.io/badge/-LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"></a> 
 </div>
--->
+
